@@ -47,15 +47,17 @@ teacher = dict(
         score_thr=0.05,
         nms=dict(type='nms', iou_threshold=0.6),
         max_per_img=500))
+student_checkpoint='/media/Pochinki/mmdetection/experiments/subresnet_ofa_o2o_crowdhuman_cfg_with_eval/epoch_40.pth'
 student = dict(
     type='mmdet.FCOSO2O',
+    init_cfg=dict(type='Pretrained', checkpoint=student_checkpoint),
     backbone=dict(
         type='SubResNet',
         d_list=[2,0,0,0,0],
         e_list=[0.2, 0.2, 0.2, 0.35, 0.35, 0.2, 0.2, 0.25, 0.35,
                 0.2, 0.35, 0.2, 0.25, 0.25, 0.2, 0.2],
-        w_list=[0, 1, 1, 0, 0, 0],
-    checkpoint_path='/media/Pochinki/mmdetection/EXP_OFA/train-subresnet-G_0-CMP_0-pretraining_subresnet_for_counting_NAS-EXP_OFA-cifar10-20220325-020740/checkpoint.pth.tar'),
+        w_list=[0, 1, 1, 0, 0, 0],),
+        #checkpoint_path='/media/Pochinki/mmdetection/EXP_OFA/train-subresnet-G_0-CMP_0-pretraining_subresnet_for_counting_NAS-EXP_OFA-cifar10-20220325-020740/checkpoint.pth.tar'),
         #depth=50,
         #num_stages=4,
         #out_indices=(0, 1, 2, 3),
@@ -244,13 +246,13 @@ data = dict(
                 ])
         ]))
 evaluation = dict(interval=10, metric=['bbox'])
-work_dir = 'experiments/dis_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval/'.format(f)
+work_dir = 'experiments/dis_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval_pretrained/'.format(f)
 checkpoint_config = dict(interval=10)
 # log_config = dict(interval=50, hooks=[dict(type='TextLoggerHook')])
 log_config = dict(interval=1,
                   hooks=[dict(type='NeptuneLoggerHook',
                               init_kwargs=dict(project='uzair789/mmdetection',
-                                               name='dis_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval'.format(f))
+                                               name='dis_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval_pretrained'.format(f))
                               )
                          ]
                   )
