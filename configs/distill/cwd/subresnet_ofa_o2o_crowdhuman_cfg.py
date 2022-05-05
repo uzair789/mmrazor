@@ -97,6 +97,7 @@ student = dict(
 # algorithm setting
 algorithm = dict(
     type='GeneralDistill',
+    with_student_loss=False,
     architecture=dict(
         type='MMDetArchitecture',
         model=student,
@@ -114,7 +115,7 @@ algorithm = dict(
                         type='ChannelWiseDivergence',
                         name='loss_cwd_cls_head',
                         tau=1,
-                        loss_weight=0.5,
+                        loss_weight=1,
                     )
                 ]),
             dict(
@@ -125,7 +126,7 @@ algorithm = dict(
                         type='ChannelWiseDivergence',
                         name='loss_cwd_reg_head',
                         tau=1,
-                        loss_weight=0.5,
+                        loss_weight=1,
                     )
                 ])
         ]),
@@ -257,13 +258,13 @@ data = dict(
                 ])
         ]))
 evaluation = dict(interval=10, metric=['bbox'])
-work_dir = 'experiments/dis_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval_pretrained_cls0.5_reg0.5/'.format(f)
+work_dir = 'experiments/dis_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval_pretrained_cls1_reg1_pure_distill/'.format(f)
 checkpoint_config = dict(interval=10)
 # log_config = dict(interval=50, hooks=[dict(type='TextLoggerHook')])
 log_config = dict(interval=1,
                   hooks=[dict(type='NeptuneLoggerHook',
                               init_kwargs=dict(project='uzair789/mmdetection',
-                                               name='cwd_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval_pretrained_cls0.5_reg0.5'.format(f))
+                                               name='cwd_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval_pretrained_cls1_reg1_pure_distill'.format(f))
                               )
                          ]
                   )
