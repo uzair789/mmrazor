@@ -114,7 +114,7 @@ algorithm = dict(
                         type='ChannelWiseDivergence',
                         name='loss_cwd_cls_head',
                         tau=1,
-                        loss_weight=5,
+                        loss_weight=0,
                     )
                 ]),
             dict(
@@ -125,7 +125,7 @@ algorithm = dict(
                         type='ChannelWiseDivergence',
                         name='loss_cwd_reg_head',
                         tau=1,
-                        loss_weight=5,
+                        loss_weight=0,
                     )
                 ])
         ]),
@@ -257,13 +257,13 @@ data = dict(
                 ])
         ]))
 evaluation = dict(interval=10, metric=['bbox'])
-work_dir = 'experiments/dis_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval_pretrained_cls_reg/'.format(f)
+work_dir = 'experiments/dis_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval_pretrained_cls0_reg0/'.format(f)
 checkpoint_config = dict(interval=10)
 # log_config = dict(interval=50, hooks=[dict(type='TextLoggerHook')])
 log_config = dict(interval=1,
                   hooks=[dict(type='NeptuneLoggerHook',
                               init_kwargs=dict(project='uzair789/mmdetection',
-                                               name='cwd_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval_pretrained_cls_reg'.format(f))
+                                               name='cwd_{}_subresnet_ofa_o2o_crowdhuman_cfg_with_eval_pretrained_cls0_reg0'.format(f))
                               )
                          ]
                   )
