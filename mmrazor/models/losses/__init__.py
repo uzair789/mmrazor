@@ -8,3 +8,6 @@ __all__ = [
     'ChannelWiseDivergence', 'KLDivergence', 'AngleWiseRKD', 'DistanceWiseRKD',
     'WSLD'
 ]
+
+from .nlm import NormalizedLogitMap
+__all__ += ['NormalizedLogitMap']
